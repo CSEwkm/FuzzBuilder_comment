@@ -20,16 +20,16 @@
 extern "C" int LLVMFuzzerTestOneInput(const unsigned char *data, size_t size);
 __attribute__((weak)) extern int LLVMFuzzerInitialize(int *argc, char ***argv);
 int main(int argc, char **argv) {
-  fprintf(stderr, "StandaloneFuzzTargetMain: running %d inputs\n", argc - 1);
-  if (LLVMFuzzerInitialize)
+  fprintf(stderr, "StandaloneFuzzTargetMain: running %d inputs\n", argc - 1);  // -1 命令名
+  if (LLVMFuzzerInitialize)  //弱声明的函数存在
     LLVMFuzzerInitialize(&argc, &argv);
   for (int i = 1; i < argc; i++) {
     fprintf(stderr, "Running: %s\n", argv[i]);
     FILE *f = fopen(argv[i], "r");
-    assert(f);
-    fseek(f, 0, SEEK_END);
-    size_t len = ftell(f);
-    fseek(f, 0, SEEK_SET);
+    assert(f);  // 频繁的调用会极大的影响程序的性能，增加额外的开销 #define NDEBUG 来禁用assert调用
+    fseek(f, 0, SEEK_END);  // 将指针f指向文件末尾
+    size_t len = ftell(f);  // 获取指针f当前位置相对于文件开头的偏移量，即文件大小
+    fseek(f, 0, SEEK_SET);  // 将指针f指向文件头
     unsigned char *buf = (unsigned char*)malloc(len);
     size_t n_read = fread(buf, 1, len, f);
     fclose(f);
