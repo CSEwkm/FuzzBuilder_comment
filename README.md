@@ -1,3 +1,4 @@
+文章的核心，要实现 automated generation of executable and seed，重点是 executable，注意虽然表述为 executable generation 但代码本身只是修改 LLVM bitcode，还需手动编译链接，难点主要在于熟练掌握 LLVM IR Builder API 以实现全局变量的创建和分支跳转。
 # FuzzBuilder: Automated building greybox fuzzing environment for C/C++ library (Extended)
 
 ## Introduction
