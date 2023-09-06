@@ -6,7 +6,7 @@
 using namespace std;
 
 Logger* Logger::instance = nullptr;
-# 并不是单例模式，单纯的全局 日志对象
+// 并不是单例模式，单纯的全局 日志对象
 Logger* Logger::get() {
     if (instance == nullptr) {
         instance = new Logger();
@@ -26,7 +26,7 @@ void Logger::log(log_level level, string msg) {
     if (level < this->level) {
         return;
     }
-    # string直接打印，局部变量
+    // string直接打印，局部变量
     string prefix;
     switch(level) {
         case DEBUG:
@@ -50,7 +50,7 @@ void Logger::log(log_level level, string msg) {
     }
     cout << prefix << msg << "\n";
 }
-# 文件错误 [F] msg(file:line)
+// 文件错误 [F] msg(file:line)
 void Logger::error(string msg, string file, size_t line) {
     this->log(FATAL, msg + "(" + file + ":" + to_string(line) +")");
 }
