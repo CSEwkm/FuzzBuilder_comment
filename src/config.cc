@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <assert.h>
 #include <iostream>
-
+// target -> init()
 void Config::Target::init(string name, size_t fuzz, size_t len) {
     this->name = name;
     this->fuzz = fuzz;
@@ -22,7 +22,7 @@ Config::Target::Target(string name, size_t fuzz) {
 Config::Target::Target(string name, size_t fuzz, size_t len) {
     init(name, fuzz, len);
 }
-
+// private: string name;
 bool Config::Target::is_target(const string src) const {
     if(name.compare(src) == 0) {
         return true;
@@ -43,7 +43,7 @@ size_t Config::Target::get_size() const {
 }
 
 Config* Config::instance = nullptr;
-
+// #include "rapidjson/document.h"
 Config::Target* Config::make_target(const rapidjson::Value& v) const {
     Target* t = nullptr;
 
@@ -65,7 +65,7 @@ Config::Target* Config::make_target(const rapidjson::Value& v) const {
     if(v.Size() > 2 && v[2].IsInt()) {
         len = v[2].GetInt();
     }
-
+    // fuzz目标为空，返回nullptr
     if (name.empty() || fuzz == 0) {
         return t;
     }
@@ -73,7 +73,7 @@ Config::Target* Config::make_target(const rapidjson::Value& v) const {
     t = new Target(name, fuzz, len);
     return t;
 }
-
+// vector<Target*> targets;都是vector
 void Config::clean() {
     while(this->targets.size() != 0) {
         delete this->targets.back();
@@ -115,7 +115,7 @@ size_t Config::get_size(string name) const {
     }
     return 0;
 }
-
+// targets.name
 vector<string> Config::get_targets() const {
     vector<string> ret;
 
@@ -137,7 +137,7 @@ vector<string> Config::get_skips() const {
 vector<string> Config::get_files() const {
     return this->files;
 }
-
+// exec seed
 bool Config::parse_cmd(int argc, char* argv[]) {
     if (argc >= 3) {
         this->type = string(argv[1]);
