@@ -13,7 +13,7 @@ using namespace std;
 
 set<Function*> IRReader::get_gtest_functions() const {
     set<Function*> ret;
-
+    // Module -> Function
     for(Function& f : *this->m) {
         if(!f.getFunctionType()->getReturnType()->isVoidTy()) {
             continue;
