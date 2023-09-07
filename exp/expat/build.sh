@@ -12,7 +12,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+# expat项目的编译脚本，将其中的CC和CXX换成了对应的afl-clang和afl-clang++
+# 如果在运行build.sh脚本时指定了cov或者seed，则会直接执行make，否则会使用AFL_USE_ASAN=1。
+# 编译好的项目会在build文件夹下生成一个fuzzbuilder可执行文件。
 ################################################################################
 
 if [[ "$#" -ge "1" && $1 == "cov" ]];
